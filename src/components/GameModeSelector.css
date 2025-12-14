@@ -1,0 +1,77 @@
+.game-mode-selector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.mode-title {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.4);
+  letter-spacing: 3px;
+  margin-bottom: 8px;
+}
+
+.mode-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.mode-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 16px;
+  background: linear-gradient(145deg, #1a1a3e 0%, #0a0a1a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 80px;
+}
+
+.mode-button:hover {
+  border-color: rgba(0, 255, 255, 0.4);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.2);
+}
+
+.mode-button.active {
+  border-color: #00fff5;
+  background: linear-gradient(145deg, #1a2a4e 0%, #0a1a3a 100%);
+  box-shadow: 
+    0 0 20px rgba(0, 255, 255, 0.3),
+    inset 0 0 20px rgba(0, 255, 255, 0.1);
+}
+
+.mode-icon {
+  font-size: 1.5rem;
+  margin-bottom: 4px;
+}
+
+.mode-name {
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 1px;
+}
+
+.mode-button.active .mode-name {
+  color: #00fff5;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .mode-button {
+    padding: 8px 12px;
+    min-width: 65px;
+  }
+
+  .mode-icon {
+    font-size: 1.2rem;
+  }
+
+  .mode-name {
+    font-size: 0.6rem;
+  }
+}

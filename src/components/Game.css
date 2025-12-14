@@ -1,0 +1,242 @@
+.game-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background effects */
+.background-effects {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  animation: float 20s ease-in-out infinite;
+}
+
+.orb-1 {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 255, 255, 0.4) 0%, transparent 70%);
+  top: -100px;
+  left: -100px;
+  animation-delay: 0s;
+}
+
+.orb-2 {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(255, 0, 128, 0.3) 0%, transparent 70%);
+  bottom: -150px;
+  right: -100px;
+  animation-delay: -7s;
+}
+
+.orb-3 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(121, 40, 202, 0.3) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -14s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  25% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+  50% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+  75% {
+    transform: translate(20px, 30px) scale(1.05);
+  }
+}
+
+/* Header */
+.game-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.game-title {
+  font-size: 4rem;
+  font-weight: 900;
+  margin: 0;
+  font-family: 'Orbitron', 'Segoe UI', sans-serif;
+  letter-spacing: 8px;
+}
+
+.title-2 {
+  color: #00fff5;
+  text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+  animation: letter-glow-1 3s ease-in-out infinite;
+}
+
+.title-0 {
+  color: #ff0080;
+  text-shadow: 0 0 30px rgba(255, 0, 128, 0.8);
+  animation: letter-glow-2 3s ease-in-out infinite;
+  animation-delay: -0.75s;
+}
+
+.title-4 {
+  color: #feca57;
+  text-shadow: 0 0 30px rgba(254, 202, 87, 0.8);
+  animation: letter-glow-3 3s ease-in-out infinite;
+  animation-delay: -1.5s;
+}
+
+.title-8 {
+  color: #48dbfb;
+  text-shadow: 0 0 30px rgba(72, 219, 251, 0.8);
+  animation: letter-glow-4 3s ease-in-out infinite;
+  animation-delay: -2.25s;
+}
+
+@keyframes letter-glow-1 {
+  0%, 100% {
+    text-shadow: 0 0 30px rgba(0, 255, 255, 0.8);
+  }
+  50% {
+    text-shadow: 0 0 50px rgba(0, 255, 255, 1), 0 0 80px rgba(0, 255, 255, 0.5);
+  }
+}
+
+@keyframes letter-glow-2 {
+  0%, 100% {
+    text-shadow: 0 0 30px rgba(255, 0, 128, 0.8);
+  }
+  50% {
+    text-shadow: 0 0 50px rgba(255, 0, 128, 1), 0 0 80px rgba(255, 0, 128, 0.5);
+  }
+}
+
+@keyframes letter-glow-3 {
+  0%, 100% {
+    text-shadow: 0 0 30px rgba(254, 202, 87, 0.8);
+  }
+  50% {
+    text-shadow: 0 0 50px rgba(254, 202, 87, 1), 0 0 80px rgba(254, 202, 87, 0.5);
+  }
+}
+
+@keyframes letter-glow-4 {
+  0%, 100% {
+    text-shadow: 0 0 30px rgba(72, 219, 251, 0.8);
+  }
+  50% {
+    text-shadow: 0 0 50px rgba(72, 219, 251, 1), 0 0 80px rgba(72, 219, 251, 0.5);
+  }
+}
+
+.game-subtitle {
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.5);
+  letter-spacing: 8px;
+  margin: 5px 0 15px;
+  font-weight: 300;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.header-btn {
+  padding: 8px 16px;
+  background: linear-gradient(145deg, #1a1a3e 0%, #0a0a1a 100%);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  color: rgba(255, 255, 255, 0.8);
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+}
+
+.header-btn:hover {
+  border-color: rgba(0, 255, 255, 0.5);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+}
+
+.header-btn.active {
+  border-color: rgba(0, 255, 255, 0.5);
+}
+
+.header-btn.new-game-btn {
+  font-size: 0.85rem;
+  letter-spacing: 1px;
+}
+
+/* Board wrapper */
+.board-wrapper {
+  position: relative;
+}
+
+/* Instructions */
+.instructions {
+  margin-top: 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.8rem;
+}
+
+.instructions p {
+  margin: 4px 0;
+}
+
+.instructions kbd {
+  display: inline-block;
+  padding: 2px 8px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  font-family: monospace;
+  font-size: 0.85rem;
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .game-container {
+    padding: 10px;
+  }
+
+  .game-title {
+    font-size: 2.5rem;
+    letter-spacing: 4px;
+  }
+
+  .game-subtitle {
+    font-size: 0.7rem;
+    letter-spacing: 4px;
+  }
+
+  .header-buttons {
+    gap: 6px;
+  }
+
+  .header-btn {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+
+  .instructions {
+    font-size: 0.7rem;
+  }
+}

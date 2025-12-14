@@ -1,0 +1,123 @@
+.tile {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  font-weight: 800;
+  font-family: 'Orbitron', 'Segoe UI', sans-serif;
+  text-shadow: 0 0 10px currentColor;
+  transition: left 0.15s ease-out, top 0.15s ease-out;
+  z-index: 10;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.tile-value {
+  user-select: none;
+}
+
+/* New tile animation */
+.tile-new {
+  animation: tile-appear 0.2s ease-out;
+}
+
+@keyframes tile-appear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Merged tile animation */
+.tile-merged {
+  animation: tile-merge 0.2s ease-out;
+  z-index: 20;
+}
+
+@keyframes tile-merge {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Super tile (2048+) special effects */
+.tile-super {
+  animation: tile-glow 2s ease-in-out infinite;
+}
+
+@keyframes tile-glow {
+  0%, 100% {
+    filter: brightness(1) saturate(1);
+  }
+  50% {
+    filter: brightness(1.2) saturate(1.2);
+  }
+}
+
+/* Rainbow animation for super high tiles */
+.tile-super::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 15px;
+  background: linear-gradient(
+    45deg,
+    #ff0080,
+    #ff8c00,
+    #40e0d0,
+    #ff0080
+  );
+  background-size: 300% 300%;
+  animation: rainbow-border 3s ease infinite;
+  z-index: -1;
+  opacity: 0.7;
+}
+
+@keyframes rainbow-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Particle effect for merged tiles */
+.tile-merged::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 12px;
+  background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+  animation: particle-burst 0.3s ease-out forwards;
+  pointer-events: none;
+}
+
+@keyframes particle-burst {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}

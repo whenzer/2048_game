@@ -1,0 +1,155 @@
+.game-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(10, 10, 26, 0.95);
+  border-radius: 16px;
+  z-index: 100;
+  animation: overlay-appear 0.3s ease-out;
+  backdrop-filter: blur(5px);
+}
+
+@keyframes overlay-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.overlay-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 30px;
+}
+
+.overlay-icon {
+  font-size: 4rem;
+  margin-bottom: 16px;
+  animation: icon-bounce 1s ease-in-out infinite;
+}
+
+@keyframes icon-bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.overlay-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 16px;
+  font-family: 'Orbitron', sans-serif;
+  letter-spacing: 4px;
+}
+
+.win .overlay-title {
+  color: #feca57;
+  text-shadow: 
+    0 0 20px rgba(254, 202, 87, 0.8),
+    0 0 40px rgba(254, 202, 87, 0.4);
+  animation: title-glow 2s ease-in-out infinite;
+}
+
+.lose .overlay-title {
+  color: #ff6b6b;
+  text-shadow: 
+    0 0 20px rgba(255, 107, 107, 0.8),
+    0 0 40px rgba(255, 107, 107, 0.4);
+}
+
+@keyframes title-glow {
+  0%, 100% {
+    text-shadow: 
+      0 0 20px rgba(254, 202, 87, 0.8),
+      0 0 40px rgba(254, 202, 87, 0.4);
+  }
+  50% {
+    text-shadow: 
+      0 0 30px rgba(254, 202, 87, 1),
+      0 0 60px rgba(254, 202, 87, 0.6),
+      0 0 100px rgba(254, 202, 87, 0.3);
+  }
+}
+
+.overlay-score {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 24px;
+}
+
+.overlay-score span {
+  color: #00fff5;
+  font-weight: 700;
+  font-family: 'Orbitron', monospace;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+}
+
+.overlay-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.overlay-button {
+  padding: 12px 24px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+}
+
+.overlay-button.continue {
+  background: linear-gradient(135deg, #10ac84 0%, #00d9ff 100%);
+  border: none;
+  color: #ffffff;
+}
+
+.overlay-button.continue:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(16, 172, 132, 0.6);
+}
+
+.overlay-button.new-game {
+  background: transparent;
+  border: 2px solid #00fff5;
+  color: #00fff5;
+}
+
+.overlay-button.new-game:hover {
+  background: rgba(0, 255, 245, 0.1);
+  box-shadow: 0 0 20px rgba(0, 255, 245, 0.4);
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 400px) {
+  .overlay-icon {
+    font-size: 3rem;
+  }
+
+  .overlay-title {
+    font-size: 1.8rem;
+  }
+
+  .overlay-score {
+    font-size: 1rem;
+  }
+
+  .overlay-button {
+    padding: 10px 18px;
+    font-size: 0.9rem;
+  }
+}
