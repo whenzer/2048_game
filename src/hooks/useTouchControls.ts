@@ -1,38 +1,38 @@
 import { useEffect, useCallback, useRef } from 'react';
+import type { RefObject } from 'react';
 import type { Direction } from '../types/game';
 
 interface UseTouchControlsOptions {
   onMove: (direction: Direction) => void;
   enabled?: boolean;
   threshold?: number;
+  elementRef: RefObject<HTMLElement | null>;
 }
 
 export const useTouchControls = ({ 
   onMove, 
   enabled = true, 
-  threshold = 50 
+  threshold = 50,
+  elementRef,
 }: UseTouchControlsOptions) => {
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
-  const isSwiping = useRef(false);
 
   const handleTouchStart = useCallback((event: TouchEvent) => {
     if (!enabled) return;
     
     const touch = event.touches[0];
     touchStartRef.current = { x: touch.clientX, y: touch.clientY };
-    isSwiping.current = true;
   }, [enabled]);
 
   const handleTouchMove = useCallback((event: TouchEvent) => {
-    if (!enabled || !touchStartRef.current || !isSwiping.current) return;
+    if (!enabled || !touchStartRef.current) return;
     
-    // Prevent scrolling while swiping on the game
+    // Prevent scrolling while swiping on the game board
     event.preventDefault();
   }, [enabled]);
 
   const handleTouchEnd = useCallback((event: TouchEvent) => {
     if (!enabled || !touchStartRef.current) {
-      isSwiping.current = false;
       return;
     }
 
@@ -46,7 +46,6 @@ export const useTouchControls = ({
     // Only trigger if swipe is significant enough
     if (Math.max(absDeltaX, absDeltaY) < threshold) {
       touchStartRef.current = null;
-      isSwiping.current = false;
       return;
     }
 
@@ -63,20 +62,22 @@ export const useTouchControls = ({
     event.preventDefault();
     onMove(direction);
     touchStartRef.current = null;
-    isSwiping.current = false;
   }, [onMove, enabled, threshold]);
 
   useEffect(() => {
+    const element = elementRef.current;
+    if (!element) return;
+
     const options: AddEventListenerOptions = { passive: false };
     
-    window.addEventListener('touchstart', handleTouchStart, options);
-    window.addEventListener('touchmove', handleTouchMove, options);
-    window.addEventListener('touchend', handleTouchEnd, options);
+    element.addEventListener('touchstart', handleTouchStart, options);
+    element.addEventListener('touchmove', handleTouchMove, options);
+    element.addEventListener('touchend', handleTouchEnd, options);
 
     return () => {
-      window.removeEventListener('touchstart', handleTouchStart);
-      window.removeEventListener('touchmove', handleTouchMove);
-      window.removeEventListener('touchend', handleTouchEnd);
+      element.removeEventListener('touchstart', handleTouchStart);
+      element.removeEventListener('touchmove', handleTouchMove);
+      element.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
+  }, [handleTouchStart, handleTouchMove, handleTouchEnd, elementRef]);
 };

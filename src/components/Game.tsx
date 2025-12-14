@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import type { GameMode } from '../types/game';
 import { useGame } from '../hooks/useGame';
 import { useKeyboardControls } from '../hooks/useKeyboardControls';
@@ -16,6 +16,7 @@ const Game: React.FC = () => {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [showStats, setShowStats] = useState(false);
   const [currentMode, setCurrentMode] = useState<GameMode>('classic');
+  const boardRef = useRef<HTMLDivElement>(null);
 
   const { playMove, playMerge, playWin, playGameOver, playPowerUp } = useSound({ enabled: soundEnabled });
 
@@ -43,10 +44,11 @@ const Game: React.FC = () => {
     enabled: !gameState.gameOver || currentMode === 'zen',
   });
 
-  // Touch controls
+  // Touch controls - only on the board element
   useTouchControls({
     onMove: handleMove,
     enabled: !gameState.gameOver || currentMode === 'zen',
+    elementRef: boardRef,
   });
 
   const handleModeChange = useCallback((mode: GameMode) => {
@@ -126,7 +128,7 @@ const Game: React.FC = () => {
       />
 
       {/* Game Board */}
-      <div className="board-wrapper">
+      <div className="board-wrapper" ref={boardRef}>
         <Board grid={gameState.grid} />
         <GameOverlay
           show={showWinOverlay}

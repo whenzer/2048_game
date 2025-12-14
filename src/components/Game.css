@@ -5,9 +5,7 @@
   align-items: center;
   padding: 20px;
   position: relative;
-  overflow: hidden;
-  touch-action: pan-x pan-y; /* Allow scrolling on container but not on game board */
-  -webkit-overflow-scrolling: touch;
+  overflow-x: hidden;
 }
 
 /* Background effects */
