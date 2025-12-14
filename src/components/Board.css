@@ -3,6 +3,10 @@
   justify-content: center;
   align-items: center;
   padding: 10px;
+  touch-action: none; /* Prevent default touch behaviors */
+  -webkit-touch-callout: none; /* Disable iOS callout */
+  -webkit-user-select: none; /* Disable text selection */
+  user-select: none;
 }
 
 .board {
@@ -17,6 +21,7 @@
     0 0 100px rgba(255, 0, 128, 0.05),
     inset 0 0 60px rgba(0, 0, 0, 0.5);
   border: 2px solid rgba(0, 255, 255, 0.2);
+  touch-action: none; /* Prevent scrolling on the board */
 }
 
 .grid-container {

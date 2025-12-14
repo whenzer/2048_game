@@ -13,16 +13,28 @@ export const useTouchControls = ({
   threshold = 50 
 }: UseTouchControlsOptions) => {
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const isSwiping = useRef(false);
 
   const handleTouchStart = useCallback((event: TouchEvent) => {
     if (!enabled) return;
     
     const touch = event.touches[0];
     touchStartRef.current = { x: touch.clientX, y: touch.clientY };
+    isSwiping.current = true;
+  }, [enabled]);
+
+  const handleTouchMove = useCallback((event: TouchEvent) => {
+    if (!enabled || !touchStartRef.current || !isSwiping.current) return;
+    
+    // Prevent scrolling while swiping on the game
+    event.preventDefault();
   }, [enabled]);
 
   const handleTouchEnd = useCallback((event: TouchEvent) => {
-    if (!enabled || !touchStartRef.current) return;
+    if (!enabled || !touchStartRef.current) {
+      isSwiping.current = false;
+      return;
+    }
 
     const touch = event.changedTouches[0];
     const deltaX = touch.clientX - touchStartRef.current.x;
@@ -34,6 +46,7 @@ export const useTouchControls = ({
     // Only trigger if swipe is significant enough
     if (Math.max(absDeltaX, absDeltaY) < threshold) {
       touchStartRef.current = null;
+      isSwiping.current = false;
       return;
     }
 
@@ -50,17 +63,20 @@ export const useTouchControls = ({
     event.preventDefault();
     onMove(direction);
     touchStartRef.current = null;
+    isSwiping.current = false;
   }, [onMove, enabled, threshold]);
 
   useEffect(() => {
     const options: AddEventListenerOptions = { passive: false };
     
     window.addEventListener('touchstart', handleTouchStart, options);
+    window.addEventListener('touchmove', handleTouchMove, options);
     window.addEventListener('touchend', handleTouchEnd, options);
 
     return () => {
       window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
       window.removeEventListener('touchend', handleTouchEnd);
     };
-  }, [handleTouchStart, handleTouchEnd]);
+  }, [handleTouchStart, handleTouchMove, handleTouchEnd]);
 };
